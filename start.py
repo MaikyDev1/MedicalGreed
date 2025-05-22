@@ -2,7 +2,7 @@ import webbrowser
 import pandas as pd
 import dearpygui.dearpygui as dpg
 
-import APIHandler
+from generator import generator
 
 dpg.create_context()
 
@@ -15,7 +15,7 @@ def new_generate_callback(sender, app_data):
     print('INFO | Generating a new dataset.csv')
     learn_size = dpg.get_value('learn_cvs_size')
     test_size = dpg.get_value('test_cvs_size')
-    APIHandler.generate_csv(learn_size, test_size)
+    generator.generate_csv(learn_size, test_size)
 
 def open_github_url(sender, data):
     webbrowser.open("https://www.google.com")
