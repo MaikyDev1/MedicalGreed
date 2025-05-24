@@ -22,15 +22,16 @@ nume_de_familie = [
     "Nicusor"
 ]
 
-boli_naspa = [
-    "Obezitate", "Anemie", "Depresie", "Meningita", "Otita", "Ciuma", "Ulcer", "Diaree",
-    "Hipertenisune", "Endometrioza", "HIV", "HPV", "Rujeola", "Variola", "TBC", "Holera",
-    "ASTM", "Diabet", "Hepatita", "Insuficienta Cardiaca", "Bronsita", "Ciroza"
-]
+boli = {
+    "names": ["Cancer", "Meningita", "AVC", "Insuficienta Renala", "Hepatita", "HIV/SIDA", "TBC",
+     "Leucemie", "Covid", "Gripa", "Raceala", "Sinuzita"],
+    "bad_level": [99, 98, 100, 90, 85, 90, 80, 60, 24, 12, 5, 10]
+}
 
-boli_ok = [
-    "Raceala", "Gripa", "COVID", "Picior-Rupt"
-]
+neurological_problems = {
+    "codes": [92041, 12321, 54212, 34135, 23423, 75353, 91362, 88234, 33432],
+    "bad_level": [94, 45, 70, 39, 87, 67, 88, 34, 13]
+}
 
 locatii = {
     "Vrancea": {
