@@ -1,13 +1,14 @@
 import pandas as pd
 
-from generator import generator
 import dearpygui.dearpygui as dpg
+
+from generator import generate_csv
 
 def new_generate_callback():
     print(f'INFO | Generating a new dataset.csv')
     learn_size = dpg.get_value('learn_cvs_size')
     test_size = dpg.get_value('test_cvs_size')
-    df, test_df = generator.generate_csv(learn_size, test_size)
+    df, test_df = generate_csv(learn_size, test_size)
     load_data(df)
 
 def load_data(df):
@@ -22,18 +23,17 @@ def load_data(df):
         with dpg.table_row(id=f"preview_item_{i}", parent="preview"):
             dpg.add_text(df.iloc[i, 0])
             dpg.add_text(df.iloc[i, 1])
-            dpg.add_text(df.iloc[i, 2])
             dpg.add_text(df.iloc[i, 3])
-            dpg.add_text(df.iloc[i, 4])
             dpg.add_text("")
-            dpg.add_text(df.iloc[i, 7])
-            dpg.add_text(df.iloc[i, 8])
             dpg.add_text(df.iloc[i, 10])
             dpg.add_text(df.iloc[i, 11])
             dpg.add_text(df.iloc[i, 12])
+            dpg.add_text(df.iloc[i, 13])
+            dpg.add_text(df.iloc[i, 14])
+            dpg.add_text(df.iloc[i, 15])
 
-def gen_window():
-    with dpg.window(label="Generate Random Data", width=800, height=300, no_resize=True, no_close=True, no_move=True):
+def gen_window(this):
+    with this:
         dpg.add_text("This script generates random data, for training and testing.")
         dpg.add_slider_int(label="Learning CSV", tag="learn_cvs_size", default_value=500, min_value=300, max_value=1000)
         dpg.add_slider_int(label="Testing CSV", tag="test_cvs_size", default_value=200, min_value=100, max_value=1000)
@@ -44,14 +44,16 @@ def gen_window():
         with dpg.table(tag="preview", header_row=True, row_background=True, resizable=False):
             dpg.add_table_column(label="Sex", width_fixed=True, width=0)
             dpg.add_table_column(label="Nume", width_fixed=True)
-            dpg.add_table_column(label="Prenume", width_fixed=True)
             dpg.add_table_column(label="CNP", width_fixed=True)
-            dpg.add_table_column(label="An", width_fixed=True, width=0)
             dpg.add_table_column(label="...", width_fixed=True, width=0)
-            dpg.add_table_column(label="Judet", width_fixed=True)
-            dpg.add_table_column(label="Oras", width_fixed=True)
-            dpg.add_table_column(label="Asigurat", width_fixed=True)
-            dpg.add_table_column(label="Boli", width_fixed=True)
+            dpg.add_table_column(label="Colesterol", width_fixed=True)
+            dpg.add_table_column(label="Job Periculos", width_fixed=True)
             dpg.add_table_column(label="Vacinari", width_fixed=True)
+            dpg.add_table_column(label="Adhearance", width_fixed=True)
+            dpg.add_table_column(label="Neurolo...", width_fixed=True)
+            dpg.add_table_column(label="TRUST", width_fixed=True)
     load_data(None)
 
+def train_window(this):
+    with this:
+        dpg.add_text("This script trains a model on a dataset.")

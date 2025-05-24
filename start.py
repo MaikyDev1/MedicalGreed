@@ -1,48 +1,39 @@
-import webbrowser
-import pandas as pd
-from windows.analyze import *
-
 import dearpygui.dearpygui as dpg
-from generator import generator
-from windows.gen_train import gen_window
+
+from windows.gen_train import gen_window, train_window
+
+def print_me(sender):
+    print(f"Menu Item: {sender}")
 
 dpg.create_context()
+dpg.create_viewport(title='Custom Title', width=900, height=700)
 
-def callback(sender, app_data):
-    print('OK was clicked.')
-    print("Sender: ", sender)
-    print("App Data: ", app_data)
+def push_gen():
+    dpg.delete_item("container", children_only=True)
+    gen_window(dpg.group(parent="container"))
+
+def push_model():
+    dpg.delete_item("container", children_only=True)
+    train_window(dpg.group(parent="container"))
 
 
+with dpg.window(tag="PW"):
+    dpg.add_spacer(height=8)
+    with dpg.group(tag="container"):
+        pass
 
-def open_github_url(sender, data):
-    webbrowser.open("https://www.google.com")
-
-dpg.add_file_dialog(
-    directory_selector=True, show=False, callback=callback, tag="file_dialog_id", width=700 ,height=400)
-
-analyze_gui(dpg)
-
-gen_window()
+dpg.set_primary_window("PW", True)
 
 with dpg.viewport_menu_bar():
-    with dpg.menu(label="Themes"):
-        dpg.add_menu_item(label="Dark")
-        dpg.add_menu_item(label="Light")
-        dpg.add_menu_item(label="Classic")
-    with dpg.menu(label="Themes"):
-        dpg.add_menu_item(label="Dark")
-        dpg.add_menu_item(label="Light")
-        dpg.add_menu_item(label="Classic")
-    with dpg.menu(label="GitHub"):
-        dpg.add_button(label="Go to my GitHub", callback=open_github_url)
+    dpg.add_spacer(height=1)
+    dpg.add_button(label="Generator", callback=push_gen)
+    dpg.add_button(label="Model", callback=push_model)
+    dpg.add_button(label="Analysis")
+    with dpg.menu(label="About"):
+        dpg.add_menu_item(label="Save", callback=print_me)
+        dpg.add_menu_item(label="Save As", callback=print_me)
 
-dpg.create_viewport(title='Custom Title', width=800, height=600)
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.start_dearpygui()
-
-while dpg.is_dearpygui_running():
-    dpg.render_dearpygui_frame()
-
 dpg.destroy_context()

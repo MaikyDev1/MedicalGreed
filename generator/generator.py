@@ -2,11 +2,6 @@ import random
 import pandas as pd
 from configs.generator_parameters import *
 
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import classification_report
-
 # Lets do magic with some random values
 columns=["Sex", "Nume", "Prenume", "CNP", "Nastere", "Judet", "Localitate", "Nationalitate",
                  "Diabet", "Fumator", "Colesterol", "Job Periculos", "Vacinari", "Aderenta La Tratament",
