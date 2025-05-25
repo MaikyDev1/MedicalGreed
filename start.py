@@ -2,11 +2,18 @@ import dearpygui.dearpygui as dpg
 
 from windows.gen_train import gen_window, train_window
 
-def print_me(sender):
-    print(f"Menu Item: {sender}")
+model = None
+
+def get_model():
+    global model
+    return model
+
+def set_model(m):
+    global model
+    model = m
 
 dpg.create_context()
-dpg.create_viewport(title='Custom Title', width=900, height=700)
+dpg.create_viewport(title='Custom Title', width=900, height=500)
 
 def push_gen():
     dpg.delete_item("container", children_only=True)
@@ -30,8 +37,8 @@ with dpg.viewport_menu_bar():
     dpg.add_button(label="Model", callback=push_model)
     dpg.add_button(label="Analysis")
     with dpg.menu(label="About"):
-        dpg.add_menu_item(label="Save", callback=print_me)
-        dpg.add_menu_item(label="Save As", callback=print_me)
+        dpg.add_menu_item(label="Save")
+        dpg.add_menu_item(label="Save As")
 
 dpg.setup_dearpygui()
 dpg.show_viewport()
