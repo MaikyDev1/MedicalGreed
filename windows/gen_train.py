@@ -4,6 +4,8 @@ import dearpygui.dearpygui as dpg
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 
+import matplotlib.pyplot as plt
+
 from generator.generator import generate_csv, columns
 
 def new_generate_callback():
@@ -20,6 +22,7 @@ def load_data(df):
         except:
             new_generate_callback()
             return
+
     for i in range(0, 5):
         dpg.delete_item(f"preview_item_{i}")
         with dpg.table_row(id=f"preview_item_{i}", parent="preview"):
@@ -65,12 +68,22 @@ def start_model(this):
         with this:
             dpg.add_text("-- Data is not generated (File dose not exists) --", parent="info_train");
         return
+    train_df['TRUST INDEX'].value_counts(normalize=True).plot(kind='bar')
+    plt.title("Class Distribution")
+    plt.xlabel("Class")
+    plt.ylabel("Proportion")
+    plt.show()
     label_encoders = {}
     for col in columns:
         le = LabelEncoder()
         train_df[col] = le.fit_transform(train_df[col])
         test_df[col] = le.fit_transform(test_df[col])
         label_encoders[col] = le
+
+    train_df.head()
+    train_df.info()
+    train_df.describe()
+
 
     # Features and labels
     X_train = train_df.drop("TRUST INDEX", axis=1)
