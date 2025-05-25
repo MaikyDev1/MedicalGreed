@@ -14,7 +14,7 @@ def set_model(m):
     model = m
 
 dpg.create_context()
-dpg.create_viewport(title='Custom Title', width=900, height=500)
+dpg.create_viewport(title='proiect', width=900, height=500)
 
 def push_gen():
     dpg.delete_item("container", children_only=True)
